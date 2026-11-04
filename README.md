@@ -7,7 +7,7 @@ To compile
 
 ```
 git clone https://github.com/leoburgesss/Hydrogen-orbitals.git
-"cd into repo"
+cd Hydrogen-Orbitals
 nix develop
 cmake -S . -B build
 cmake --build build
