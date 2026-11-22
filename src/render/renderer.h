@@ -11,8 +11,9 @@ class Renderer{
     void drawCircle(float cx, float cy, float cz, float radius, float d);
     void drawAxis();
     void setVertices(const std::vector<float>& points, int components);
-    void drawPoints(std::vector<float> c);
-    void flushPoints();
+    void drawPoints();
+    void uploadPoints(std::vector<float>& c);
+    void updateAngle(float a);
     void setMVP(const glm::mat4& mvp);
     glm::mat4 computeMVP();
 
@@ -28,9 +29,15 @@ class Renderer{
     //components: float per vertex in vbo
     //vertex count: total number of vertices from every shape in the vbo
     GLint mvpLoc_;
+    GLint  uTimeLoc_ = -1;
+    double t0_      = 0.0;
+
+    float cameraAngle_ = 0;
 
     int width_, height_;
     //screen size
+    //
+
     
     void createProgram(const std::string& vertPath, const std::string& fragPath);
     

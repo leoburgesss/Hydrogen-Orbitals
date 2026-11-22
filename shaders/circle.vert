@@ -1,10 +1,17 @@
 #version 330 core
 layout (location = 0) in vec4 aPos; //vertex input attribute 3 floats for position
+layout (location = 1) in float omega; //angular velocity
 uniform mat4 uMVP;
-out float vRho;
+uniform float uTime;
+out float vPhase;
 void main()
 {
+  float angle = omega * uTime;
+  float c = cos(angle);
+  float s = sin(angle);
+  vec2 rotated = mat2(c, -s, s, c) * aPos.xy;
 
-  gl_Position = uMVP * vec4(aPos.xyz, 1.0); //4 component clip space position x, y, z, w where w is the perspective divide
-  vRho = aPos.w;
+  gl_Position = uMVP * vec4(rotated, aPos.z, 1.0);
+
+  vPhase = aPos.w;
 }

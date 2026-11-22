@@ -2,6 +2,8 @@
 #include <complex>
 #include <vector>
 #include <algorithm>
+#include <random>
+#include <iostream>
 
 constexpr double pi = 3.141592653589793;
 namespace{
@@ -111,4 +113,36 @@ std::vector<float> densityCloud(double probabilityCutoff, int n, int l, int m, i
   }
   return points;
 }
+
+std::vector<float> pointCloud(double probabilityCutoff, int n, int l, int m, int count, double extent, std::uint32_t seed){
+  std::vector<float> out = {};
+  out.reserve(count * 5);
+  std::mt19937 rng(seed);
+  std::uniform_real_distribution<double> U(-extent, extent);
+  
+  while(out.size() / 5 < count){
+
+    double x = U(rng); double y = U(rng); double z = U(rng);
+    Spherical s = toSpherical(x, y, z);
+    double rho = probDensity(n, l, m, s.r, s.theta);
+
+    if(rho < probabilityCutoff){continue;}
+
+    double rxy = std::sqrt(x*x + y*y);
+    double sgn = (m > 0) ? 1.0 : (m < 0 ? -1.0 : 0.0);
+    double omega = sgn * 10.0 / std::max(rxy*rxy, 0.0001);
+
+    double phase = (m * s.phi) / (2.0 * pi);
+    phase -= std::floor(phase);
+    
+    out.push_back(static_cast<float>(x));
+    out.push_back(static_cast<float>(y));
+    out.push_back(static_cast<float>(z));
+    out.push_back(static_cast<float>(phase));
+    out.push_back(static_cast<float>(omega));
+
+  }
+  return out;
+}
+
 }

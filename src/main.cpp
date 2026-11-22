@@ -11,11 +11,17 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <string>
 
 constexpr int screenWidth = 1080;
 constexpr int screenHeight = 1080;
 
-int main(){
+int main(int argc, char** argv){
+
+int n = std::stoi(argv[1]);
+int l = std::stoi(argv[2]);
+int m = std::stoi(argv[3]);
+
 //glfw initialisation
   glfwInit();
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -39,12 +45,9 @@ if (err != GLEW_OK){std::cerr << "Failed to init Glew\n"; return -1;}
 glGetError();
 
 glEnable(GL_DEPTH_TEST);
-glEnable(GL_BLEND);
-glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-glDisable(GL_DEPTH_TEST);
 
 //create application class which manages everything
-Application app = Application(window, screenWidth, screenHeight);
+Application app = Application(window, screenWidth, screenHeight, n, l, m);
 
 //calls the main loop of the application 
 app.run();
