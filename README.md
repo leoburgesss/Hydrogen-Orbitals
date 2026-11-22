@@ -18,3 +18,6 @@ To run
 ```
 ./build/hydrogen {n} {l} {m}
 ```
+
+
+(Demo gif is n=4 l=2 m=1)
