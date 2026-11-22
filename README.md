@@ -12,3 +12,9 @@ nix develop
 cmake -S . -B build
 cmake --build build
 ```
+
+
+To run
+```
+./build/hydrogen {n} {l} {m}
+```
