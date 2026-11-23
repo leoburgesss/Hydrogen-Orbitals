@@ -3,7 +3,7 @@ A hydrogen orbital probability visualiser written in c++ with opengl.
 
 ![Demo](demo.gif)
 
-To compile
+To compile (linux)
 
 ```
 git clone https://github.com/leoburgesss/Hydrogen-orbitals.git
